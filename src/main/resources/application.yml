@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: spring-ai-course
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: qwen2.5:3b
+          temperature: 0.2
+      embedding:
+        options:
+          model: nomic-embed-text
+      init:
+        # 模型沒下載時直接報錯，而不是自動下載
+        pull-model-strategy: never
+
+logging:
+  level:
+    # SimpleLoggerAdvisor 用 DEBUG 等級印出請求與回應（Lab 3 觀察用）
+    org.springframework.ai.chat.client.advisor: DEBUG
