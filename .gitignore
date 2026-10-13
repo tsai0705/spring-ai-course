@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 講師本機檔案（不公開） ###
+docs/講義.md
+docs/spring-boot-vs-spring-ai.png
