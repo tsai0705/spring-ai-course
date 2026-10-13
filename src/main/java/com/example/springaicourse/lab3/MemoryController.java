@@ -33,14 +33,14 @@ public class MemoryController {
         // Advisor 是請求的攔截器：在呼叫模型前後插入額外行為。
         // SimpleLoggerAdvisor 只負責印 log，方便看清楚送給模型的內容
         this.plainClient = builder.clone()
-                // 小模型預設常用簡體中文回答，用 system prompt 固定語言
+                // 用 system prompt 固定回答語言為繁體中文
                 .defaultSystem("請用繁體中文回答")
                 .defaultAdvisors(new SimpleLoggerAdvisor())
                 .build();
 
         // MessageChatMemoryAdvisor 呼叫前讀出歷史訊息放進 prompt，呼叫後把新的問答存回記憶
         this.memoryClient = builder.clone()
-                // 小模型預設常用簡體中文回答，用 system prompt 固定語言
+                // 用 system prompt 固定回答語言為繁體中文
                 .defaultSystem("請用繁體中文回答")
                 .defaultAdvisors(
                         MessageChatMemoryAdvisor.builder(chatMemory).build(),

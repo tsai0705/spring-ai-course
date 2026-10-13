@@ -30,6 +30,17 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- 聊天模型：Google Gemini（用 API key） -->
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-model-google-genai</artifactId>
+		</dependency>
+		<!-- Lab 4：MCP Client，連外部的 MCP Server 拿工具來用 -->
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-mcp-client</artifactId>
+		</dependency>
+		<!-- 只給講師示範的 RAG（demo.rag）當 embedding 用 -->
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-starter-model-ollama</artifactId>

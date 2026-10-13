@@ -2,12 +2,43 @@ spring:
   application:
     name: spring-ai-course
   ai:
+    # 同時有 Gemini 與 Ollama 兩個 starter，要明確指定各自負責的工作
+    model:
+      chat: google-genai      # 聊天一律用 Gemini
+      embedding: ollama       # embedding 只給講師示範的 RAG（rag profile）用
+    google:
+      genai:
+        # API key 只從環境變數 GEMINI_API_KEY 讀取，不要寫進任何檔案
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          options:
+            model: gemini-3.5-flash-lite
+            # 限制回答長度，節省 token
+            max-output-tokens: 1024
+    retry:
+      # 預設會重試 10 次，失敗時會浪費免費額度，所以改成最多 2 次
+      max-attempts: 2
+    # Lab 4：MCP Client，用 STDIO 啟動官方 filesystem MCP Server（需要 Node.js 18+）
+    mcp:
+      client:
+        # false = 啟動時不先跟 Server 握手，沒裝 Node.js 時 Lab 1 到 3 也能正常啟動，
+        # 第一次呼叫 /lab4/with-mcp 才會真正啟動 npx
+        initialized: false
+        # 第一次啟動 npx 要下載套件，可能超過預設 20 秒，所以拉長
+        request-timeout: 120s
+        stdio:
+          connections:
+            filesystem:
+              # Windows 要寫 npx.cmd；macOS / Linux 請改成 npx
+              command: npx.cmd
+              args:
+                - -y
+                - "@modelcontextprotocol/server-filesystem"
+                # 只允許存取專案根目錄底下的 mcp-files（相對於執行時的工作目錄）
+                - mcp-files
+    # 以下 Ollama 設定只有講師示範 RAG（--spring.profiles.active=rag）才會用到
     ollama:
       base-url: http://localhost:11434
-      chat:
-        options:
-          model: qwen2.5:3b
-          temperature: 0.2
       embedding:
         options:
           model: nomic-embed-text

@@ -21,11 +21,11 @@ public class ChatController {
 
     private final ChatClient chatClient;
 
-    // Spring AI 自動設定好 ChatClient.Builder（已綁定 application.yml 的 Ollama 模型），
+    // Spring AI 自動設定好 ChatClient.Builder（已綁定 application.yml 的 Gemini 模型），
     // 我們 build 出一個 ChatClient 重複使用即可
     public ChatController(ChatClient.Builder builder) {
         this.chatClient = builder
-                // 小模型預設常用簡體中文回答，用 system prompt 固定語言
+                // 用 system prompt 固定回答語言為繁體中文
                 .defaultSystem("請用繁體中文回答")
                 .build();
     }

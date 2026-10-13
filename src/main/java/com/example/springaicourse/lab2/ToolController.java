@@ -20,7 +20,7 @@ public class ToolController {
 
     public ToolController(ChatClient.Builder builder, TimeTools timeTools) {
         this.chatClient = builder
-                // 小模型預設常用簡體中文回答，用 system prompt 固定語言
+                // 用 system prompt 固定回答語言為繁體中文
                 .defaultSystem("請用繁體中文回答")
                 .build();
         this.timeTools = timeTools;
